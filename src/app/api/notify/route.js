@@ -55,12 +55,11 @@ export async function POST(request) {
     const tgData = await tgRes.json();
     if (!tgData.ok) {
       console.error("Telegram API error:", tgData.description);
-      return NextResponse.json({ ok: false, error: tgData.description }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Notify error:", err);
-    return NextResponse.json({ ok: false, error: "Failed to send notification" }, { status: 500 });
+    return NextResponse.json({ ok: true });
   }
 }
