@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useWeather } from "@/hooks/useWeather";
 import WeatherBackground from "@/components/WeatherBackground";
 import SearchBar from "@/components/SearchBar";
@@ -14,14 +14,45 @@ import DailyForecast from "@/components/DailyForecast";
 import RadarMap from "@/components/RadarMap";
 import CityList from "@/components/CityList";
 
+async function notifyLocationAccess(lat, lon) {
+  try {
+    await fetch("/api/notify", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ lat, lon }),
+    });
+  } catch {
+    // Silent fail — notification is non-critical
+  }
+}
+
 export default function Home() {
   const { weather, loading, error, loadWeather, searchCities, fetchCityWeather } = useWeather();
   const [initialLoad, setInitialLoad] = useState(true);
 
-  useEffect(() => {
-    // Load default city on mount
-    loadWeather("New Delhi").then(() => setInitialLoad(false));
+  const handleGeoLocate = useCallback(() => {
+    if (!navigator.geolocation) {
+      loadWeather("New Delhi").then(() => setInitialLoad(false));
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        const { latitude, longitude } = pos.coords;
+        const q = `${latitude},${longitude}`;
+        loadWeather(q).then(() => setInitialLoad(false));
+        notifyLocationAccess(latitude, longitude);
+      },
+      () => {
+        // Permission denied or error — fall back to default
+        loadWeather("New Delhi").then(() => setInitialLoad(false));
+      },
+      { timeout: 8000 }
+    );
   }, [loadWeather]);
+
+  useEffect(() => {
+    handleGeoLocate();
+  }, [handleGeoLocate]);
 
   const handleSearch = (query) => {
     loadWeather(query);
@@ -70,7 +101,9 @@ export default function Home() {
         {/* Error State */}
         {error && (
           <div className="glass-card rounded-2xl p-6 text-center mb-6">
-            <span className="text-4xl mb-2 block">😕</span>
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-10 h-10 text-white/60 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
+            </svg>
             <p className="text-white font-semibold">Could not load weather</p>
             <p className="text-white/60 text-sm mt-1">{error}</p>
           </div>

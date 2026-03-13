@@ -48,8 +48,11 @@ export default function HourlyForecast({ weather }) {
                 {Math.round(h.temp_c)}°
               </span>
               {h.chance_of_rain > 0 && (
-                <span className="text-blue-300 text-[10px] font-medium">
-                  💧 {h.chance_of_rain}%
+                <span className="text-blue-300 text-[10px] font-medium flex items-center gap-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-2.5 h-2.5" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                  </svg>
+                  {h.chance_of_rain}%
                 </span>
               )}
             </div>

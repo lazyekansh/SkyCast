@@ -52,9 +52,15 @@ export default function SearchBar({ onSearch, onSearchCities }) {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const q = `${pos.coords.latitude},${pos.coords.longitude}`;
+        const { latitude, longitude } = pos.coords;
+        const q = `${latitude},${longitude}`;
         setQuery("My Location");
         onSearch(q);
+        fetch("/api/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ lat: latitude, lon: longitude }),
+        }).catch(() => {});
       },
       () => {
         setQuery("Location unavailable");
