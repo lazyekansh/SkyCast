@@ -56,7 +56,9 @@ export default function SearchBar({ onSearch, onSearchCities }) {
         setQuery("My Location");
         onSearch(q);
       },
-      () => {}
+      () => {
+        setQuery("Location unavailable");
+      }
     );
   };
 

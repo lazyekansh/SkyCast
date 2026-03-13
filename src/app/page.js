@@ -19,10 +19,9 @@ export default function Home() {
   const [initialLoad, setInitialLoad] = useState(true);
 
   useEffect(() => {
-    // Load default city
+    // Load default city on mount
     loadWeather("New Delhi").then(() => setInitialLoad(false));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [loadWeather]);
 
   const handleSearch = (query) => {
     loadWeather(query);

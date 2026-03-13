@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 
 const POPULAR_CITIES = [
-  "New Delhi", "Mumbai", "Bangalore", "Chennai", "Kolkata",
+  "New Delhi", "Mumbai", "Bengaluru", "Chennai", "Kolkata",
   "Hyderabad", "Pune", "Ahmedabad", "Jaipur", "Lucknow",
   "Bhopal", "Chandigarh", "Patna", "Thiruvananthapuram", "Bhubaneswar",
   "Dehradun", "Ranchi", "Raipur", "Guwahati", "Shimla",

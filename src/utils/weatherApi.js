@@ -1,7 +1,8 @@
-const API_KEY = process.env.WEATHER_API_KEY || "fec68ebf3d3341e09f295825251712";
+const API_KEY = process.env.WEATHER_API_KEY;
 const BASE = "https://api.weatherapi.com/v1";
 
 export async function fetchForecast(query, days = 7) {
+  if (!API_KEY) throw new Error("WEATHER_API_KEY not configured");
   const res = await fetch(
     `${BASE}/forecast.json?key=${API_KEY}&q=${encodeURIComponent(query)}&days=${days}&aqi=yes&alerts=yes`,
     { next: { revalidate: 600 } }

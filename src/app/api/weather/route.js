@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-const API_KEY = process.env.WEATHER_API_KEY || "fec68ebf3d3341e09f295825251712";
+const API_KEY = process.env.WEATHER_API_KEY || "";
 const BASE = "https://api.weatherapi.com/v1";
 
 function generateMockForecast(q) {

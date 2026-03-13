@@ -61,7 +61,8 @@ export function windDirection(deg) {
 
 /** Format date for daily forecast */
 export function formatDay(dateStr) {
-  const date = new Date(dateStr + "T00:00:00");
+  const [year, month, day] = dateStr.split("-").map(Number);
+  const date = new Date(year, month - 1, day);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   const tomorrow = new Date(today);
