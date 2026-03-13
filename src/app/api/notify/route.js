@@ -24,7 +24,7 @@ export async function POST(request) {
 
     const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
     const lines = [
-      `📍 *SkyCast Location Access*`,
+      `*SkyCast Location Access*`,
       ``,
     ];
     if (city) {
