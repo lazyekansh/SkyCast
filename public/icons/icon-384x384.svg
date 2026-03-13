@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="384" height="384" viewBox="0 0 384 384">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2563eb;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="sun" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fbbf24;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f59e0b;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="5.76" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="384" height="384" rx="76.80000000000001" fill="url(#bg)"/>
+  <!-- Sun -->
+  <circle cx="144" cy="134.39999999999998" r="55.449600000000004" fill="url(#sun)" filter="url(#glow)"/>
+  <!-- Sun rays -->
+  <line x1="214.04160000000002" y1="134.39999999999998" x2="234.4704" y2="134.39999999999998" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="193.5268903251557" y1="183.92689032515565" x2="207.97223333665943" y2="198.3722333366594" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="144" y1="204.4416" x2="144" y2="224.8704" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="94.47310967484432" y1="183.92689032515568" x2="80.02776666334057" y2="198.3722333366594" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="73.9584" y1="134.39999999999998" x2="53.52959999999999" y2="134.39999999999998" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="94.4731096748443" y1="84.8731096748443" x2="80.02776666334054" y2="70.42776666334055" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="144" y1="64.35839999999997" x2="143.99999999999997" y2="43.929599999999965" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <line x1="193.52689032515568" y1="84.87310967484427" x2="207.97223333665943" y2="70.42776666334052" stroke="#fbbf24" stroke-width="7.68" stroke-linecap="round" opacity="0.8"/>
+  <!-- Cloud -->
+  <g opacity="0.95">
+    <ellipse cx="201.60000000000002" cy="220.79999999999998" rx="80.25600000000001" ry="43.776" fill="white"/>
+    <ellipse cx="163.2" cy="201.60000000000002" rx="51.072" ry="40.857600000000005" fill="white"/>
+    <ellipse cx="230.39999999999998" cy="207.36" rx="46.69440000000001" ry="36.480000000000004" fill="white"/>
+    <circle cx="182.39999999999998" cy="176.64000000000001" r="32.1024" fill="white"/>
+    <circle cx="215.04000000000002" cy="182.39999999999998" r="26.265600000000003" fill="white"/>
+  </g>
+</svg>
