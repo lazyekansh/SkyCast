@@ -25,11 +25,15 @@ export default function Home() {
       return;
     }
     navigator.geolocation.getCurrentPosition(
-      (pos) => {
+      async (pos) => {
         const { latitude, longitude } = pos.coords;
         const q = `${latitude},${longitude}`;
-        loadWeather(q).then(() => setInitialLoad(false));
-        notifyLocationAccess(latitude, longitude);
+        const data = await loadWeather(q);
+        setInitialLoad(false);
+        const city = data?.location
+          ? `${data.location.name}, ${data.location.region || data.location.country}`
+          : undefined;
+        notifyLocationAccess(latitude, longitude, city);
       },
       () => {
         // Permission denied or error — fall back to default
