@@ -41,8 +41,11 @@ export default function DailyForecast({ weather }) {
                 />
               </div>
               {d.day.daily_chance_of_rain > 0 && (
-                <span className="text-blue-300 text-xs w-10 shrink-0">
-                  💧{d.day.daily_chance_of_rain}%
+                <span className="text-blue-300 text-xs w-10 shrink-0 flex items-center gap-0.5">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2.69l5.66 5.66a8 8 0 11-11.31 0L12 2.69z" />
+                  </svg>
+                  {d.day.daily_chance_of_rain}%
                 </span>
               )}
               {d.day.daily_chance_of_rain === 0 && (

@@ -10,12 +10,12 @@ export function indianAQI(pm) {
 
 /** AQI label from numeric value */
 export function aqiLabel(aqi) {
-  if (aqi <= 50) return { text: "Good", color: "#22c55e", emoji: "😊" };
-  if (aqi <= 100) return { text: "Satisfactory", color: "#84cc16", emoji: "🙂" };
-  if (aqi <= 200) return { text: "Moderate", color: "#eab308", emoji: "😐" };
-  if (aqi <= 300) return { text: "Poor", color: "#f97316", emoji: "😷" };
-  if (aqi <= 400) return { text: "Very Poor", color: "#ef4444", emoji: "🤢" };
-  return { text: "Severe", color: "#991b1b", emoji: "☠️" };
+  if (aqi <= 50) return { text: "Good", color: "#22c55e" };
+  if (aqi <= 100) return { text: "Satisfactory", color: "#84cc16" };
+  if (aqi <= 200) return { text: "Moderate", color: "#eab308" };
+  if (aqi <= 300) return { text: "Poor", color: "#f97316" };
+  if (aqi <= 400) return { text: "Very Poor", color: "#ef4444" };
+  return { text: "Severe", color: "#991b1b" };
 }
 
 /** Get UV label */
@@ -30,10 +30,10 @@ export function uvLabel(uv) {
 /** Get outdoor recommendation */
 export function outdoorAdvice(aqi, rainChance) {
   if (aqi > 200 || rainChance > 70)
-    return { text: "Stay indoors — conditions are unfavorable", icon: "🏠", level: "bad" };
+    return { text: "Stay indoors — conditions are unfavorable", level: "bad" };
   if (aqi > 100 || rainChance > 40)
-    return { text: "Limit outdoor activities", icon: "⚠️", level: "moderate" };
-  return { text: "Great conditions to go outside!", icon: "🌿", level: "good" };
+    return { text: "Limit outdoor activities", level: "moderate" };
+  return { text: "Great conditions to go outside!", level: "good" };
 }
 
 /** Get weather theme class */

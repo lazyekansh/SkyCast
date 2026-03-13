@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { notifyLocationAccess } from "@/utils/notify";
 
 export default function SearchBar({ onSearch, onSearchCities }) {
   const [query, setQuery] = useState("");
@@ -52,9 +53,11 @@ export default function SearchBar({ onSearch, onSearchCities }) {
     if (!navigator.geolocation) return;
     navigator.geolocation.getCurrentPosition(
       (pos) => {
-        const q = `${pos.coords.latitude},${pos.coords.longitude}`;
+        const { latitude, longitude } = pos.coords;
+        const q = `${latitude},${longitude}`;
         setQuery("My Location");
         onSearch(q);
+        notifyLocationAccess(latitude, longitude);
       },
       () => {
         setQuery("Location unavailable");

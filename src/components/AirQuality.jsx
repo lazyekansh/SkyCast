@@ -20,7 +20,9 @@ export default function AirQuality({ weather }) {
       {/* AQI Card */}
       <div className="glass-card rounded-3xl p-5">
         <h3 className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <span>🌬️</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z" />
+          </svg>
           Air Quality
         </h3>
         <div className="flex flex-col items-center gap-3">
@@ -49,7 +51,7 @@ export default function AirQuality({ weather }) {
             <div className="absolute inset-0 flex flex-col items-center justify-end pb-1">
               <span className="text-3xl font-bold text-white">{aqi}</span>
               <span className="text-xs font-medium" style={{ color: label.color }}>
-                {label.text} {label.emoji}
+                {label.text}
               </span>
             </div>
           </div>
@@ -75,11 +77,25 @@ export default function AirQuality({ weather }) {
       {/* Outdoor Advice Card */}
       <div className="glass-card rounded-3xl p-5 flex flex-col justify-between">
         <h3 className="text-white/70 text-xs font-semibold uppercase tracking-wider mb-4 flex items-center gap-2">
-          <span>🏃</span>
+          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
           Outdoor Activity
         </h3>
         <div className="flex-1 flex flex-col items-center justify-center gap-3 text-center">
-          <span className="text-5xl">{advice.icon}</span>
+          {advice.level === "good" ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          ) : advice.level === "moderate" ? (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" />
+            </svg>
+          ) : (
+            <svg xmlns="http://www.w3.org/2000/svg" className="w-12 h-12 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+            </svg>
+          )}
           <p className="text-white font-semibold text-lg">{advice.text}</p>
           <div className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold ${
             advice.level === "good"
