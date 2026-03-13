@@ -13,18 +13,7 @@ import SunMoon from "@/components/SunMoon";
 import DailyForecast from "@/components/DailyForecast";
 import RadarMap from "@/components/RadarMap";
 import CityList from "@/components/CityList";
-
-async function notifyLocationAccess(lat, lon) {
-  try {
-    await fetch("/api/notify", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ lat, lon }),
-    });
-  } catch {
-    // Silent fail — notification is non-critical
-  }
-}
+import { notifyLocationAccess } from "@/utils/notify";
 
 export default function Home() {
   const { weather, loading, error, loadWeather, searchCities, fetchCityWeather } = useWeather();

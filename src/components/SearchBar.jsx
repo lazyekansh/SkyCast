@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { notifyLocationAccess } from "@/utils/notify";
 
 export default function SearchBar({ onSearch, onSearchCities }) {
   const [query, setQuery] = useState("");
@@ -56,11 +57,7 @@ export default function SearchBar({ onSearch, onSearchCities }) {
         const q = `${latitude},${longitude}`;
         setQuery("My Location");
         onSearch(q);
-        fetch("/api/notify", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ lat: latitude, lon: longitude }),
-        }).catch(() => {});
+        notifyLocationAccess(latitude, longitude);
       },
       () => {
         setQuery("Location unavailable");
